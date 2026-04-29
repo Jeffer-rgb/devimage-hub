@@ -62,7 +62,7 @@
 })();
 
 // ── UTILIDADES ──────────────────────────────────────────────
-const API = 'https://devimage-hub.onrender.com/';
+const API = '';
 
 function setLoading(btn, on) {
   btn.classList.toggle('loading', on);

@@ -61,7 +61,7 @@
 })();
 
 // ── ESTADO GLOBAL ──────────────────────────────────────────
-const API = 'https://devimage-hub.onrender.com/';
+const API = '';
 let token, username;
 let filtroActual = 'todos';
 let ordenActual = 'reciente';
