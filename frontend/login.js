@@ -1,7 +1,9 @@
 // ── FONDO HEXAGONAL ────────────────────────────────────────
 (function () {
   const canvas = document.getElementById('bg');
-  const ctx    = canvas.getContext('2d');
+  if (!canvas) return; // 🔥 protección en ambos
+
+  const ctx = canvas.getContext('2d');
   let W, H, hexes = [];
   const S = 28;
 
