@@ -62,7 +62,7 @@
 })();
 
 // ── UTILIDADES ──────────────────────────────────────────────
-const API = 'http://localhost:3000';
+const API = 'https://devimage-hub.onrender.com/';
 
 function setLoading(btn, on) {
   btn.classList.toggle('loading', on);
@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('token',    data.token);
       localStorage.setItem('username', data.username);
       setStatus('statusLogin','success','Acceso concedido — redirigiendo...');
-      setTimeout(() => { window.location.href = '/dashboard'; }, 800);
+      setTimeout(() => { window.location.href = 'dashboard.html'; }, 800);
 
     } catch { setStatus('statusLogin','error','Error de conexión con el servidor'); }
     finally  { setLoading(btn, false); }

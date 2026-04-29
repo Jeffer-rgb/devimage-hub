@@ -110,15 +110,19 @@ app.post('/login', (req, res) => {
     if (!ok) return res.status(401).json({ message: 'Credenciales incorrectas' });
 
     const token = jwt.sign({ userId: user.id }, SECRET);
-    res.json({ token });
+
+    // 🔥 FIX
+    res.json({ 
+      token,
+      username: user.username
+    });
   });
 });
-
 // ── UPLOAD ──────────────────────────────────────────────────
 app.post('/upload', auth, upload.single('image'), async (req, res) => {
   if (!req.file) return res.status(400).json({ message: 'No image' });
 
-  const imageUrl = `/uploads/${req.file.filename}`;
+  const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
 
   db.run(
     `INSERT INTO images (userId, imageUrl) VALUES (?, ?)`,

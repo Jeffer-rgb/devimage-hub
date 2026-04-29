@@ -2,11 +2,11 @@
   "name": "devimage-hub",
   "version": "2.1.0",
   "description": "Plataforma de galerías de imágenes tech/software aesthetic - Production Ready",
-  "main": "backend/index.js",
+  "main": "backend/server.js",
   "type": "commonjs",
   "scripts": {
-    "start": "node backend/index.js",
-    "dev": "nodemon backend/index.js"
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

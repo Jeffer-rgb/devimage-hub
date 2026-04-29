@@ -4,7 +4,8 @@ const path    = require('path');
 const db = new sqlite3.Database(path.join(__dirname, '../database.db'));
 
 db.serialize(() => {
-
+db.run("PRAGMA journal_mode = WAL");
+db.run("PRAGMA foreign_keys = ON");
   db.run(`
     CREATE TABLE IF NOT EXISTS users (
       id         INTEGER PRIMARY KEY AUTOINCREMENT,
