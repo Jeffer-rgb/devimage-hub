@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevImage Hub — Acceso</title>
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+<canvas id="bg"></canvas>
+<div class="scanline"></div>
+
+<!-- LOGIN -->
+<div class="wrapper" id="wrapperLogin">
+  <div class="card">
+    <div class="logo">
+      <svg class="logo-hex" viewBox="0 0 38 38" fill="none">
+        <polygon points="19,2 35,11 35,27 19,36 3,27 3,11" fill="rgba(34,211,238,0.08)" stroke="#22d3ee" stroke-width="1.2"/>
+        <polygon points="19,8 30,14.5 30,23.5 19,30 8,23.5 8,14.5" fill="rgba(34,211,238,0.04)" stroke="rgba(34,211,238,0.35)" stroke-width="0.8"/>
+        <circle cx="19" cy="19" r="4" fill="#22d3ee" opacity="0.9"/>
+        <line x1="19" y1="8"    x2="19" y2="13"   stroke="#22d3ee" stroke-width="1" opacity="0.4"/>
+        <line x1="19" y1="25"   x2="19" y2="30"   stroke="#22d3ee" stroke-width="1" opacity="0.4"/>
+        <line x1="8"  y1="14.5" x2="13" y2="17"   stroke="#22d3ee" stroke-width="1" opacity="0.4"/>
+        <line x1="25" y1="21"   x2="30" y2="23.5" stroke="#22d3ee" stroke-width="1" opacity="0.4"/>
+      </svg>
+      <span class="logo-name">Dev<span>Image</span></span>
+    </div>
+
+    <p class="heading">Bienvenido<br>de vuelta</p>
+    <p class="subheading">— acceso al sistema —</p>
+    <div class="divider"></div>
+
+    <div class="field-group">
+      <label class="field-label" for="loginUser">Usuario</label>
+      <div class="field-wrap">
+        <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2" stroke-linecap="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+        </svg>
+        <input type="text" id="loginUser" placeholder="tu_usuario" autocomplete="username" required>
+      </div>
+      <small class="error-msg" id="errLoginUser"></small>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label" for="loginPass">Contraseña</label>
+      <div class="field-wrap">
+        <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2" stroke-linecap="round">
+          <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+        <input type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password" required>
+        <button type="button" class="toggle-pw" id="togglePw">
+          <svg id="eyeOpen" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+          </svg>
+          <svg id="eyeClosed" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2" style="display:none">
+            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+            <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+            <line x1="1" y1="1" x2="23" y2="23"/>
+          </svg>
+        </button>
+      </div>
+      <small class="error-msg" id="errLoginPass"></small>
+    </div>
+
+    <button type="button" class="btn-submit" id="btnLogin">
+      <span class="btn-text">Iniciar sesión</span>
+    </button>
+
+    <div class="status-bar" id="statusLogin"></div>
+
+    <div class="switch-form">
+      <span>¿No tienes cuenta?</span>
+      <button type="button" id="btnIrRegistro">Regístrate aquí</button>
+    </div>
+    <p class="footer-text">DevImage Hub · v2.0</p>
+  </div>
+</div>
+
+<!-- REGISTRO -->
+<div class="wrapper" id="wrapperRegistro" style="display:none">
+  <div class="card">
+    <div class="logo">
+      <svg class="logo-hex" viewBox="0 0 38 38" fill="none">
+        <polygon points="19,2 35,11 35,27 19,36 3,27 3,11" fill="rgba(34,211,238,0.08)" stroke="#22d3ee" stroke-width="1.2"/>
+        <polygon points="19,8 30,14.5 30,23.5 19,30 8,23.5 8,14.5" fill="rgba(34,211,238,0.04)" stroke="rgba(34,211,238,0.35)" stroke-width="0.8"/>
+        <circle cx="19" cy="19" r="4" fill="#22d3ee" opacity="0.9"/>
+      </svg>
+      <span class="logo-name">Dev<span>Image</span></span>
+    </div>
+
+    <p class="heading">Crear<br>cuenta</p>
+    <p class="subheading">— nuevo usuario —</p>
+    <div class="divider"></div>
+
+    <div class="field-group">
+      <label class="field-label" for="regUser">Usuario</label>
+      <div class="field-wrap">
+        <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2" stroke-linecap="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+        </svg>
+        <input type="text" id="regUser" placeholder="mi_usuario (letras, números, _)" autocomplete="username" required>
+      </div>
+      <small class="error-msg" id="errRegUser"></small>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label" for="regEmail">Email</label>
+      <div class="field-wrap">
+        <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2" stroke-linecap="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+        <input type="email" id="regEmail" placeholder="tu@email.com" autocomplete="email" required>
+      </div>
+      <small class="error-msg" id="errRegEmail"></small>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label" for="regPass">Contraseña</label>
+      <div class="field-wrap">
+        <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2" stroke-linecap="round">
+          <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+        <input type="password" id="regPass" placeholder="mínimo 6 caracteres" required>
+      </div>
+      <small class="error-msg" id="errRegPass"></small>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label" for="regPass2">Confirmar contraseña</label>
+      <div class="field-wrap">
+        <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2" stroke-linecap="round">
+          <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+        <input type="password" id="regPass2" placeholder="repite tu contraseña" required>
+      </div>
+      <small class="error-msg" id="errRegPass2"></small>
+    </div>
+
+    <button type="button" class="btn-submit" id="btnRegistrar">
+      <span class="btn-text">Crear cuenta</span>
+    </button>
+
+    <div class="status-bar" id="statusReg"></div>
+
+    <div class="switch-form">
+      <span>¿Ya tienes cuenta?</span>
+      <button type="button" id="btnIrLogin">Inicia sesión</button>
+    </div>
+    <p class="footer-text">DevImage Hub · v2.0</p>
+  </div>
+</div>
+
+<script src="login.js"></script>
+</body>
+</html>

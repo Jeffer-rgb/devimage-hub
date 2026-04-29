@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevImage Hub — Galería</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+<canvas id="bg"></canvas>
+<div class="scanline"></div>
+
+<div class="app">
+  <!-- ── NAVBAR ── -->
+  <nav class="nav">
+    <div class="nav-logo">
+      <svg width="26" height="26" viewBox="0 0 38 38" fill="none">
+        <polygon points="19,2 35,11 35,27 19,36 3,27 3,11" fill="rgba(34,211,238,0.08)" stroke="#22d3ee" stroke-width="1.5"/>
+        <circle cx="19" cy="19" r="4" fill="#22d3ee" opacity="0.9"/>
+      </svg>
+      <span class="nav-name">Dev<span>Image</span></span>
+    </div>
+
+    <div class="nav-links">
+      <button class="nav-link active" data-section="explorar">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        Explorar
+      </button>
+      <button class="nav-link" data-section="subir">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Subir
+      </button>
+      <button class="nav-link" data-section="mis-imagenes">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Mis imágenes
+      </button>
+    </div>
+
+    <div class="nav-right">
+      <div class="nav-status">
+        <span class="status-dot"></span>
+        <span class="nav-username" id="navUsername">usuario</span>
+      </div>
+      <div class="avatar" id="navAvatar">?</div>
+      <button class="btn-theme-toggle" id="btnThemeToggle" title="Cambiar tema">
+        <svg id="sunIcon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg id="moonIcon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      <button class="btn-logout" id="btnLogout" title="Cerrar sesión">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── LAYOUT ── -->
+  <div class="content">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="side-section">
+        <p class="side-title">Categorías</p>
+        <button class="side-item active" data-cat="todos">
+          <div class="side-icon" style="background:rgba(34,211,238,0.1)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          </div>
+          <span class="side-label">Todos</span>
+          <span class="side-count" id="countTodos">0</span>
+        </button>
+        <button class="side-item" data-cat="wallpaper">
+          <div class="side-icon" style="background:rgba(99,102,241,0.15)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#a5b4fc" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          </div>
+          <span class="side-label">Wallpapers</span>
+          <span class="side-count" id="countWallpaper">0</span>
+        </button>
+        <button class="side-item" data-cat="fanart">
+          <div class="side-icon" style="background:rgba(236,72,153,0.15)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#f9a8d4" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </div>
+          <span class="side-label">Fanart</span>
+          <span class="side-count" id="countFanart">0</span>
+        </button>
+        <button class="side-item" data-cat="perfil">
+          <div class="side-icon" style="background:rgba(34,211,238,0.1)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#67e8f9" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          </div>
+          <span class="side-label">Fotos perfil</span>
+          <span class="side-count" id="countPerfil">0</span>
+        </button>
+        <button class="side-item" data-cat="ui">
+          <div class="side-icon" style="background:rgba(251,191,36,0.1)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fde68a" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/></svg>
+          </div>
+          <span class="side-label">UI / Mockups</span>
+          <span class="side-count" id="countUi">0</span>
+        </button>
+      </div>
+
+      <div class="side-section">
+        <p class="side-title">Ordenar por</p>
+        <button class="side-item active-sort" data-sort="reciente">
+          <div class="side-icon" style="background:rgba(34,211,238,0.08)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <span class="side-label">Más reciente</span>
+        </button>
+        <button class="side-item" data-sort="popular">
+          <div class="side-icon" style="background:rgba(34,211,238,0.08)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+          </div>
+          <span class="side-label">Más popular</span>
+        </button>
+      </div>
+
+      <div class="side-section">
+        <p class="side-title">Mi actividad</p>
+        <div class="side-stat">
+          <span class="side-stat-label">Mis subidas</span>
+          <span class="side-stat-val" id="statSubidas">0</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+      <div class="hero">
+        <div class="hero-left">
+          <h1 class="hero-title">Galería <span>Tech</span></h1>
+          <p class="hero-sub">Wallpapers · Fanart · Fotos de perfil · UI Mockups</p>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-card">
+            <span class="stat-n" id="totalImagenes">0</span>
+            <span class="stat-l">Imágenes</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-n" id="totalUsuarios">0</span>
+            <span class="stat-l">Usuarios</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="filter-bar">
+        <div class="chips" id="chips">
+          <button class="chip active" data-cat="todos">Todos</button>
+          <button class="chip" data-cat="wallpaper">Wallpapers</button>
+          <button class="chip" data-cat="fanart">Fanart</button>
+          <button class="chip" data-cat="perfil">Fotos perfil</button>
+          <button class="chip" data-cat="ui">UI / Mockups</button>
+        </div>
+        <div class="search-wrap">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" id="searchInput" placeholder="Buscar imágenes...">
+        </div>
+      </div>
+
+      <div class="gallery" id="gallery"></div>
+
+      <button class="btn-load-more" id="btnCargarMas" onclick="cargarMas()" style="display:none">
+        Cargar más imágenes
+      </button>
+
+      <div class="empty-state" id="emptyState" style="display:none">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(34,211,238,0.25)" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <p>No hay imágenes aquí todavía</p>
+        <button class="btn-empty" onclick="document.querySelector('[data-section=subir]').click()">Sube la primera</button>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ── MODAL SUBIR ── -->
+<div class="modal-overlay" id="modalSubir" style="display:none">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Subir imagen</h2>
+      <button class="modal-close" id="modalSubirClose">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div class="upload-area" id="uploadArea">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="rgba(34,211,238,0.45)" stroke-width="1.5">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+      </svg>
+      <p>Arrastra o <label for="fileInput" class="file-label">elige un archivo</label></p>
+      <span>PNG, JPG, GIF, WEBP — máx. 10 MB</span>
+      <input type="file" id="fileInput" accept="image/*" style="display:none">
+    </div>
+
+    <div id="previewWrap" style="display:none">
+      <img id="previewImg" alt="preview">
+      <button class="preview-remove" id="previewRemove">Quitar imagen</button>
+    </div>
+
+    <div class="modal-fields">
+      <div class="m-field">
+        <label class="field-label">Título</label>
+        <input type="text" id="uploadTitle" placeholder="Nombre de la imagen" maxlength="60">
+        <small class="error-msg" id="errUploadTitle"></small>
+      </div>
+      <div class="m-field">
+        <label class="field-label">Categoría</label>
+        <select id="uploadCat">
+          <option value="wallpaper">Wallpaper</option>
+          <option value="fanart">Fanart</option>
+          <option value="perfil">Foto de perfil</option>
+          <option value="ui">UI / Mockup</option>
+        </select>
+      </div>
+      <div class="m-field">
+        <label class="field-label">Tags (opcional)</label>
+        <input type="text" id="uploadTags" placeholder="code, dark, tech, ...">
+      </div>
+    </div>
+
+    <button class="btn-upload" id="btnConfirmarSubida">
+      <span class="btn-text">Publicar imagen</span>
+    </button>
+    <div class="status-bar" id="statusUpload"></div>
+  </div>
+</div>
+
+<!-- ── MODAL VER IMAGEN ── -->
+<div class="modal-overlay" id="modalVer" style="display:none">
+  <div class="modal modal-ver">
+    <button class="modal-close modal-ver-close" id="modalVerClose">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="ver-img-wrap">
+      <img id="verImg" alt="">
+    </div>
+    <div class="ver-info">
+      <div class="ver-meta">
+        <p class="ver-title" id="verTitle"></p>
+        <p class="ver-sub" id="verSub"></p>
+        <p class="ver-tags" id="verTags"></p>
+      </div>
+      <div class="ver-actions">
+        <button class="btn-fav" id="btnFav">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span id="favCount">0</span>
+        </button>
+        <a class="btn-dl" id="btnDescargar" href="#" download>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Descargar
+        </a>
+        <button class="btn-delete" id="btnDelete" style="display:none">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+          Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="dashboard.js"></script>
+</body>
+</html>
